@@ -10,7 +10,7 @@ def get_longest_common_seqence(str1, str2):
       return 0, None
  
   ## 不使用numpy数组，需要这样申请，避免浅拷贝，导致改一条数据引起导出改动引起混乱
-  deep_graph = [[] for in in range(s1_len + 1)] # 申请s1_len + 1 行
+  deep_graph = [[] for i in range(s1_len + 1)] # 申请s1_len + 1 行
   deep_graph = [[0]*(s2_len+1) for i in deep_graph] # s2 + 1 列
  
   index_i = 1
