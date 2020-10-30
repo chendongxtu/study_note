@@ -1,0 +1,31 @@
+str1 = "ABCBDAB"
+str2 = "BDCABA"
+
+### 获取最长公共子序列的长度，以及组成的二维图
+def get_longest_common_seqence(str1, str2):
+  s1_len = len(str1)
+  s2_len = len(str2)
+  
+  if s1_len == 0 or s2_len == 0:
+      return 0, None
+ 
+  ## 不使用numpy数组，需要这样申请，避免浅拷贝，导致改一条数据引起导出改动引起混乱
+  deep_graph = [[] for in in range(s1_len + 1)] # 申请s1_len + 1 行
+  deep_graph = [[0]*(s2_len+1) for i in deep_graph] # s2 + 1 列
+ 
+  index_i = 1
+  while index_i <= s1_len:
+      index_j = 1
+      while index_j <= s2_len:
+          if str1[index_i-1] == str2[index_j-1]:
+              deep_graph[index_i][index_j] = deep_graph[index_i-1][index_j-1] + 1
+          else:
+              deep_graph[index_i][index_j] = max(deep_graph[index_i-1][index_j], deep_graph[index_i][index_j-1])
+          index_j += 1
+      index_i += 1
+  
+  return deep_graph[s1_len][s2_len], deep_graph
+
+
+##### 打印出全部解（全部解，一般需要用到回溯法（树的深度优先））
+def print_lcs_result(dp index_i, index_j):
